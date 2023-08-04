@@ -48,7 +48,7 @@ Using `if`
 (define (abs x)
   (if (< x 0)
       (- x)
-	  x))
+      x))
 ```
 
 Also `and`, `or`, and `not` can be used: `(and (< x 5) (> y 20) (= z 3))`
