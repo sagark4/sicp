@@ -40,5 +40,20 @@ or with an `else`
   (cond ((< x 0) (-x))
   	(else x)))
 ```
+**`cond` is short-circuiting!
 
+Using `if`
+
+```scheme
+(define (abs x)
+  (if (< x 0)
+	  (- x)
+	  x))
+```
+
+Also `and`, `or`, and `not` can be used: `(and (< x 5) (> y 20) (= z 3))`
+
+##### Exercises
+
+Exercises 1.1 and 1.2 skipped.
  
