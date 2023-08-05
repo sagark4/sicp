@@ -4,14 +4,14 @@ by Abelson, Sussman, and Sussman, second edition (in Scheme)
 
 I would add my notes/summaries in this readme. The repo is for exercises.
 
-## Chapter 1. Building Abstractions with Procedures
+# Chapter 1. Building Abstractions with Procedures
 
 Lisp seems like the minimalist language with emphasis on symbol
 manipulation that is approriate for learning about computation. The
 dialect _Scheme_ is used. I am planning to use the same. It has
 interpreter and we can also write a script.
 
-### 1.1 The Elements of Programming
+## 1.1 The Elements of Programming
 
 * Primitive expressions
 * Combining expressions
@@ -55,11 +55,11 @@ Using `if`
 
 Also `and`, `or`, and `not` can be used: `(and (< x 5) (> y 20) (= z 3))`
 
-##### Exercises
+## Exercises
 
 Exercises 1.1 and 1.2 skipped.
 
-Exercise 1.5:
+### Exercise 1.5:
 
 ```scheme
 (define (p)
@@ -72,3 +72,19 @@ Exercise 1.5:
 ```
 
 * Since normal order delays evaluation of operands, `(p)` will not be evaluated, which is basically an infinite loop. But the applicative order (the default) will cause an infinite loop.
+
+### Exercise 1.6
+
+Demonstrates that `if` is short-circuited, whereas a procedure-call is not.
+
+### Exercise 1.7
+
+Instead of stopping when the guess is close in the `sqrt` algorithm, asks to stop when the change in guess is a small fraction of the guess.
+
+### Exercise 1.8
+
+Using Newton's method for cube root.  Should be straightforward, so skipped.
+
+## 1.1.8 Procedures as Black-Box Abstractions
+
+Essentially discussing procedures as algorithms using subproblems.
