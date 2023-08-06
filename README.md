@@ -248,4 +248,16 @@ Filling in blanks to make the earlier `sum` procedure iterative.
   (iter a 0))
 ```
 
-and 1.31 skipped
+Exercise 1.31 skipped
+
+
+## Exercise 1.32
+
+Generalizing the `sum` procedure even further.  (Only partial attempt.)
+
+```scheme
+(define (accumulate combiner null-value term a next b)
+  (if (> a b)
+      null-value
+      (combiner (term a) (accumulate combiner null-value term (next a) next b))))
+```
