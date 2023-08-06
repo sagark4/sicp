@@ -85,6 +85,70 @@ Instead of stopping when the guess is close in the `sqrt` algorithm, asks to sto
 
 Using Newton's method for cube root.  Should be straightforward, so skipped.
 
-## 1.1.8 Procedures as Black-Box Abstractions
+### 1.1.8 Procedures as Black-Box Abstractions
 
-Essentially discussing procedures as algorithms using subproblems.
+- Essentially discussing procedures as algorithms using subproblems.
+- Discussion on variable binding, local variables, scope, etc.
+- **Local procedures!** Nesting of definitions is called _block structure_.
+  - **Lexical scoping**: free variables in a procedure refer to the enclosing scope (cf. Crafting Interpreters).
+- The idea of **block structure** originated in `Algol 60`.
+
+## 1.2 Procedures and the Processes They Generate
+
+> A procedure is a pattern for the _local evolution_ of a computational process.
+
+### 1.2.1 Linear Recursion and Iteration
+
+The following is recursive, because the return value of the recursive call is used to compute something before returning.
+```scheme
+(define (factorial n)
+  (if (= n 1)
+      1
+	  (* n (factorial (- n 1)))))
+```
+
+But the following returns directly the value of the recursive call:
+```scheme
+(define (factorial n)
+  (fact-iter 1 1 n))
+
+(define (fact-iter product counter max-count)
+  (if (> counter max-count)
+      product
+      (fact-iter (* product counter)
+                 (+ counter 1)
+                 max-count)))
+```
+
+Therefore, it is iterative.  The language implementation that implements above procedure in constant space is called _tail recursive_.
+
+### Exercise 1.9
+
+Demonstrates how processes evolve.
+
+### Exercise 1.10
+
+Ackermann's function.
+
+
+### 1.2.2 Tree Recursion
+
+Fibonacci, recursive and iterative.
+
+### 1.2.3 Orders of Growth
+
+Big-O notation.
+
+### Exercises 1.14 and 1.15 skipped (on orders of growth).
+
+### 1.2.4 Exponentiation
+
+Algorithm using the following relation: $b^n = (b^{n/2})^2$ if $n$ is even, and $b^n = b\cdot b^{n-1}$ otherwise.
+
+### Exercise 1.16
+
+I remember I was completely stumped by this exercise, because I did not really understand the question.  But as soon as I did, I solved it.  Apparently, the iterative solution with two calls is also tail-recursive according to [https://sicp-solutions.net/post/sicp-solution-exercise-1-16/](https://sicp-solutions.net/post/sicp-solution-exercise-1-16/).
+
+### Exercises 1.17 and 1.18
+
+Just implementation exercise for multiplication, equivalent to exponentiation.  Skipped.
