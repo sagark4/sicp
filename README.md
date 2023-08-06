@@ -59,6 +59,24 @@ Also `and`, `or`, and `not` can be used: `(and (< x 5) (> y 20) (= z 3))`
 
 Exercises 1.1 and 1.2 skipped.
 
+### Exercise 1.3
+Some of squares of two largest numbers from given three numbers.
+```scheme
+(define (square a)
+  (* a a))
+
+(define (sos a b)
+  (+ (square a) (square b)))
+
+(define (sos-max2 a b c)
+  (cond
+    ((and (< a b) (< a c)) (sos b c))
+    ((and (< b c)) (sos a c))
+    (else (sos a b))))
+```
+
+Exercise 1.4 is skipped.
+
 ### Exercise 1.5:
 
 ```scheme
@@ -130,6 +148,26 @@ Demonstrates how processes evolve.
 
 Ackermann's function.
 
+### Exercise 1.11
+
+A simple function to compute recursively and iteratively.
+
+```scheme
+(define (f-rec n)
+  (cond
+    ((< n 3) n)
+    (else (+ (f-rec (- n 1)) (* 2 (f-rec (- n 2))) (* 3 (f-rec (- n 3)))))))
+
+(define (f-iter n)
+  (cond
+    ((< n 3) n)
+    (else (f-iter-h 0 1 2 (- n 2)))))
+
+(define (f-iter-h a b c rem-steps)
+  (if (= 0 rem-steps) c (f-iter-h b c (+ c (* 2 b) (* 3 a)) (- rem-steps 1))))
+```
+
+Exercise 1.12 and 1.13 skipped.
 
 ### 1.2.2 Tree Recursion
 
@@ -152,3 +190,27 @@ I remember I was completely stumped by this exercise, because I did not really u
 ### Exercises 1.17 and 1.18
 
 Just implementation exercise for multiplication, equivalent to exponentiation.  Skipped.
+
+### Exercises 1.19
+
+This is Fibonacci using application of the specific Fibonacci transformation $n$ times.  Since this is a special case of $n$th power of a matrix, I thought I'd implement the general matrix power, but without a complex data structure, it got out of hand quickly, so just filled in the gaps in the given exercise.
+
+```scheme
+(define (fib n)
+  (fib-iter 1 0 0 1 n))
+(define (fib-iter a b p q count)
+  (cond
+    ((= count 0) b)
+    ((even? count)
+     (fib-iter a
+               b
+               ; compute p ′
+               ; compute q ′
+               (+ (* p p) (* q q))
+               (+ (* 2 p q) (* q q))
+               (/ count 2)))
+    (else (fib-iter (+ (* b q) (* a q) (* a p)) (+ (* b p) (* a q)) p q (- count 1)))))
+```
+
+### 1.2.5 on GCD and 1.2.6 on primality skipped (also Exercises 1.21 to 1.28)
+
