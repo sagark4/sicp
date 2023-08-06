@@ -223,12 +223,10 @@ Basically discussing how functions can be passed around.
 Simpson's rule for integration.
 
 ```scheme
-(define (sum term a next b)
-  (if (> a b) 0 (+ (term a) (sum term (next a) next b))))
-
 (define (simpsons f a b n)
+  (define h (/ (- b a) n))
   (define (simp-term k)
-    (* (/ (- b a) (* 3 n)) (f (+ a (* (/ (- b a) n) k)))
+    (* (/ h 3) (f (+ a (* h k)))
        (cond ((or (= k 0) (= k n)) 1)
 	     ((even? k) 2)
 	     (else 4))))
@@ -264,4 +262,69 @@ Generalizing the `sum` procedure even further.  (Only partial attempt.)
 (define (inc n) (+ n 1))
 (define (sum-integers a b)
   (accumulate + 0 identity a inc b))
+```
+Exercise 1.33 skipped.
+
+### 1.3.2 Constructing Procedures Using `Lambda`
+
+Lambdas are basically anonymous procedures:
+
+```scheme
+(lambda (x) (* x x))
+```
+
+You can define a lambda and immediately apply it, but there is a special form for that called `let`.  E.g., the following function computes $f(x) = (1+x)^2$.
+
+```scheme
+(define (f x)
+  (let ((y (+ 1 x)))
+    (* y y)))
+```
+
+**Note** that the `let` is just syntactic sugar for the immediately applied lambda.  Which means
+
+- the variables are bound locally, and
+- the variables' values are computed outside the `let`, i.e., if you redefine a variable, say `x`, inside let, then in the variable definitions, on the RHS, `x` would still refer to the outer scope.  A concrete example:
+
+```scheme
+(define x 42)
+(define (f)
+  (let ((x 3) (y x))
+    (+ x y)))
+(f)
+```
+outputs `45`.
+
+**NOTE** apparently, internal definitions are subtle and using them with procedures is okay for time being.  We should use `let` instead of `define` for local variables.
+
+### Exercise 1.34
+
+```scheme
+(define (f g)
+  (g 2))
+
+(f f)
+```
+This will try to call `2` as a procedure and fail.
+
+Exercises 1.35 and 1.36 skipped.
+
+### Exercise 1.37
+
+This was actually straightforward: this involves computing continued fractions iteratively and recursively.
+
+```scheme
+(define (cont-frac n d k)
+  (define (cont-frac-h i)
+    (if (> i k)
+	0
+	(/ (n i) (+ (d i) (cont-frac-h (+ i 1))))))
+  (cont-frac-h 1))
+
+(define (cont-frac-iter n d k)
+  (define (cont-frac-iter-h i cur-sum)
+    (if (= i 0)
+	cur-sum
+	(cont-frac-iter-h (- i 1) (/ (n i) (+ (d i) cur-sum)))))
+  (cont-frac-iter-h k 0))
 ```
