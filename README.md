@@ -328,3 +328,21 @@ This was actually straightforward: this involves computing continued fractions i
 	(cont-frac-iter-h (- i 1) (/ (n i) (+ (d i) cur-sum)))))
   (cont-frac-iter-h k 0))
 ```
+
+### Exercise 1.38
+
+Trivial using the `remainder` procedure.
+
+```scheme
+(define (e k)
+  (+ 2 (cont-frac-iter (lambda (i) 1.0)
+		       (lambda (i)
+			 (cond ((= i 1) 1)
+			       ((= i 2) 2)
+			       ((not (= (remainder i 3) 2)) 1)
+			       (else (* 2 (/ (+ i 1) 3)))
+			       ))
+		       k)))
+```
+
+Exercise 1.39 skipped; similar in spirit to earlier ones.
