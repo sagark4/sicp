@@ -235,3 +235,17 @@ Simpson's rule for integration.
   (define (inc n) (+ n 1))
   (sum simp-term 0 inc n))
 ```
+
+### Exercises 1.30
+Filling in blanks to make the earlier `sum` procedure iterative.
+
+```scheme
+(define (sum term a next b)
+  (define (iter a result)
+    (if (> a b)
+	result
+	(iter (next a) (+ result (term a)))))
+  (iter a 0))
+```
+
+and 1.31 skipped
