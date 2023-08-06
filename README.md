@@ -60,7 +60,7 @@ Also `and`, `or`, and `not` can be used: `(and (< x 5) (> y 20) (= z 3))`
 Exercises 1.1 and 1.2 skipped.
 
 ### Exercise 1.3
-Some of squares of two largest numbers from given three numbers.
+Sum of squares of two largest numbers from given three numbers.
 ```scheme
 (define (square a)
   (* a a))
@@ -214,3 +214,24 @@ This is Fibonacci using application of the specific Fibonacci transformation $n$
 
 ### 1.2.5 on GCD and 1.2.6 on primality skipped (also Exercises 1.21 to 1.28)
 
+## 1.3 Formulating Abstractions with Higher-Order Procedures
+
+Basically discussing how functions can be passed around.
+
+### Exercise 1.29
+
+Simpson's rule for integration.
+
+```scheme
+(define (sum term a next b)
+  (if (> a b) 0 (+ (term a) (sum term (next a) next b))))
+
+(define (simpsons f a b n)
+  (define (simp-term k)
+    (* (/ (- b a) (* 3 n)) (f (+ a (* (/ (- b a) n) k)))
+       (cond ((or (= k 0) (= k n)) 1)
+	     ((even? k) 2)
+	     (else 4))))
+  (define (inc n) (+ n 1))
+  (sum simp-term 0 inc n))
+```
