@@ -307,6 +307,13 @@ outputs `45`.
 ```
 This will try to call `2` as a procedure and fail.
 
+### 1.3.3 Procedures as General Methods
+
+More examples of procedures as algorithms: 
+
+- finding fixed points of functions (i.e., given $f(x)$ and an initial guess, find $a$ s.t. $f(a) = a$)
+- finding zeros of functions (i.e., given $f(x)$ and two numbers with opposite signs for the $f$ value, find $a$ s.t. $f(a) = 0$)
+
 Exercises 1.35 and 1.36 skipped.
 
 ### Exercise 1.37
@@ -346,3 +353,30 @@ Trivial using the `remainder` procedure.
 ```
 
 Exercise 1.39 skipped; similar in spirit to earlier ones.
+
+### 1.3.4 Procedures as Return Values
+
+Demonstrates the usefulness of the ability to return procedures via Newton's method that finds a zero of $g(x)$ by computing a fixed point of $f(x) = x - g(x)/g'(x)$.
+
+#### Abstractions and first-class procedures
+
+> Some of the "rights and privileges" of the first-class elements of a programming language are
+
+ability to be 
+
+- named by variables, 
+- passed as arguments, 
+- returned as results, and 
+- included in a data structure
+
+In `Lisp`, procedures are first class.
+
+### Exercise 1.40
+
+```scheme
+(define (cube x) (* x x x))
+(define (square x) (* x x))
+
+(define (cubic a b c)
+  (lambda (x) (+ (cube x) (* a (square x)) (* b x) c)))
+```
