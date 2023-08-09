@@ -403,3 +403,39 @@ The result of `(((double (double double)) (lambda (x) (+ x 1))) 5)` is `21`.  (I
     (if (= count 0) acc (repeat-f (compose f acc) (- count 1))))
   (repeat-f f (- n 1)))
 ```
+
+Exercises 1.44 and 1.45 are skipped (the ideas are quite clear to me).
+
+### Exercise 1.46
+
+This exercise is about returning a general function for iterative improvement.
+
+```scheme
+(define (iterative-improve guess-good? improve-guess)
+  (define (iter guess)
+    (if (guess-good? guess)
+	guess
+	(iter (improve-guess guess))))
+  iter)
+```
+**Note**: I added parentheses around `iter` above, but that would mean a procedure call!  It kept complaining missing argument.
+
+Then the `sqrt` procedure would be as follows:
+```scheme
+(define (sqrt x)
+  ((iterative-improve
+    (lambda (guess) (< (abs (- (square guess) x)) 0.00001))
+    (lambda (guess) (average guess (/ x guess))))
+   1.0))
+```
+Here, I missed the extra pair of parentheses around `(iterative-improve ...)`, so it was apparently interpreted as `(define (sqrt x) <something> 1.0)` and kept outputting `1.0`.
+
+And the `fixed-point` procedure would be:
+```scheme
+(define (fixed-point f first-guess)
+  ((iterative-improve
+    (lambda (guess) (< (abs (- guess (f guess))) tolerance))
+    f)
+   first-guess))
+```
+Chapter 1 done!  😀
