@@ -430,6 +430,17 @@ Then the `sqrt` procedure would be as follows:
 ```
 Here, I missed the extra pair of parentheses around `(iterative-improve ...)`, so it was apparently interpreted as `(define (sqrt x) <something> 1.0)` and kept outputting `1.0`.
 
+To elaborate:
+```scheme
+(define (f x) (lambda (n) (+ n 1)) x)
+(f 3)
+```
+would output `3` and the following would output `4`, which is what we want.
+```scheme
+(define (f x) ((lambda (n) (+ n 1)) x))
+(f 3)
+```
+
 And the `fixed-point` procedure would be:
 ```scheme
 (define (fixed-point f first-guess)
