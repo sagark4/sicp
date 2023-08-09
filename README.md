@@ -380,3 +380,26 @@ In `Lisp`, procedures are first class.
 (define (cubic a b c)
   (lambda (x) (+ (cube x) (* a (square x)) (* b x) c)))
 ```
+
+### Exercise 1.41
+
+```scheme
+(define (double f) (lambda (x) (f (f x))))
+```
+
+The result of `(((double (double double)) (lambda (x) (+ x 1))) 5)` is `21`.  (I actually guessed wrong; I thought it would be three times `double` but it's four times.)
+
+### Exercise 1.42
+
+```scheme
+(define (compose f g) (lambda (x) (f (g x))))
+```
+
+### Exercise 1.43
+
+```scheme
+(define (repeated f n)
+  (define (repeat-f acc count)
+    (if (= count 0) acc (repeat-f (compose f acc) (- count 1))))
+  (repeat-f f (- n 1)))
+```
