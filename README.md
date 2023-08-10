@@ -449,4 +449,33 @@ And the `fixed-point` procedure would be:
     f)
    first-guess))
 ```
+
+Final note for the chapter: major implementation cost of functional languages is that when returning procedures, space has to be made for free variables (even if it is not executing).
+
 Chapter 1 done!  😀
+
+# Chapter 2. Building Abstractions with Data
+
+This chapter seems to be about lists mainly.  The motivation in the beginning is pretty much the same as that for object oriented languages.
+
+## 2.1 Introduction to Data Abstraction
+Again, trivial coming from OO concepts.
+
+## Pairs: `cons`, `car`, and `cdr`
+
+`(cons 4 42)` creates a pair with first part as `4` and second as `42`.  To extract the first part, you can use `car`, and `cdr` for the second part.
+
+```scheme
+(car (cons 4 42))
+```
+would output `4`.
+
+- As you might expect, you can have `cons` of `cons`, e.g., `(cons 42 (cons 41 40))`
+- Then rational number implementation with a unique representation by reducing them to lowest terms (using the GCD procedure that I skipped) is given.  I am happy to skip this part as well.
+- Exercise 2.1 skipped. (It's about rational numbers.)
+- Exercises 2.2 and 2.3 ask to implement data structures for line segments and rectangles.  Skipped.
+- Section 2.1.3 demonstrates how one could implement `cons`, `car`, and `cdr` using procedures.
+  - Exercise 2.4 is about implementing `cons` using `lambda` procedures.
+  - Exercise 2.5 is about implementing `cons` (for nonnegative integers) using integers of form $2^a 3^b$.
+  - TODO: Exercise 2.6 about implementing pairs using some fancy `lambda` magic.
+
