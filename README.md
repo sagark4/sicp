@@ -545,3 +545,24 @@ This exercise was fun.  Compute a sublist that has the same parity as the first 
   (cons a (same-parity-h l)))
 ```
 
+`map` procedure: takes two types of arguments
+
+- a procedure that accepts $n$ arguments followed by
+- $n$ lists,
+
+and returns a list whose $i$ th element is the procedure applied to all the $i$ th elements of the lists.
+
+Exercise 2.21 is trivial; Exercise 2.22 is exactly the same issue I mentioned in Exercise 2.18.
+
+### Exercise 2.23
+
+An implementation of `for-each`.
+
+```scheme
+(define (for-each f l)
+  (if (null? l)
+      true
+      ((lambda (_x _y) true)
+       (f (car l))
+       (for-each f (cdr l)))))
+```
