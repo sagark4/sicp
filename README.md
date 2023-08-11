@@ -498,6 +498,7 @@ has a short-form in Scheme: `(list 1 2 3 4)`.
 - In future, they will denote the empty list as `'()`, which will replace `nil`.
 - `null?` tests whether the list is empty.  So `(null? nil)` returns true, as does `(null? '())`.
 - `append` to append several lists.
+- Indexing is $O(n)$.
 
 Exercise 2.17 skipped
 
@@ -522,3 +523,25 @@ Incorrect first solution:
       (cons (reverse (cdr l)) (car l))))
 ```
 This attempt generated on `(list 1 2 3 4)` the output `((((() . 4) . 3) . 2) . 1)`, which is obviously not a list.
+
+Exercise 2.19 skipped, as I skipped the "coin-change" problem section/exercises in the previous chapter on which it is based.
+
+**Note**: The following exercise introduces the notation for accepting variable number of arguments.
+`(define (f x y . z) <body>)`
+
+### Exercise 2.20
+
+This exercise was fun.  Compute a sublist that has the same parity as the first element (maintaining the order).
+
+```scheme
+(define (same-parity a . l)
+  (define (same-parity-h li)
+    (if (null? li)
+	nil
+	(let ((cur (car li)) (rem-list (cdr li)))
+	  (if (= (remainder a 2) (remainder cur 2))
+	      (cons cur (same-parity-h rem-list))
+	      (same-parity-h rem-list)))))
+  (cons a (same-parity-h l)))
+```
+
