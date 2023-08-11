@@ -478,4 +478,47 @@ would output `4`.
   - Exercise 2.4 is about implementing `cons` using `lambda` procedures.
   - Exercise 2.5 is about implementing `cons` (for nonnegative integers) using integers of form $2^a 3^b$.
   - TODO: Exercise 2.6 about implementing pairs using some fancy `lambda` magic.
+- Section 2.1.4 is implementation of "interval arithmetic"
+  - Exercises 2.7 to 2.16 are about that and are skipped.
+  - One brief observation is that when you perform an arithmetic operation on two intervals where one interval is a point, then you don't lose any "information" after the operation.  Which means, when you provide a procedure on intervals, it is best to find a way to have as few of the interval arithmetic operations as possible.  This is all I'll say about this subsection.
+  
+## 2.2 Hierarchical Data and the Closure Property
 
+- Talks about _box and pointer_ notation.
+- _Closure_ property: when the result of a combination can be used further for the same kind of combination.
+- This gives us a way to construct a _list_ using a bunch of `cons`es.
+
+```scheme
+(cons 1 (cons 2 (cons 3 (cons 4 nil))))
+```
+has a short-form in Scheme: `(list 1 2 3 4)`.
+
+- `cadr` is short for `car` followed by `cdr`, i.e., `(car (cadr <something>))` is same as `(cadr <something>)`.
+- `nil` is a contraction of _nihil_, which means "nothing" in Latin, which basically means empty list.
+- In future, they will denote the empty list as `'()`, which will replace `nil`.
+- `null?` tests whether the list is empty.  So `(null? nil)` returns true, as does `(null? '())`.
+- `append` to append several lists.
+
+Exercise 2.17 skipped
+
+### Exercise 2.18
+
+Reverse a list.
+
+```scheme
+(define (reverse lo)
+  (define (reverse-h l prev)
+    (if (null? l)
+	prev
+	(reverse-h (cdr l) (cons (car l) prev))))
+  (reverse-h lo nil))
+```
+
+Incorrect first solution:
+```scheme
+(define (reverse l)
+  (if (null? l)
+      nil
+      (cons (reverse (cdr l)) (car l))))
+```
+This attempt generated on `(list 1 2 3 4)` the output `((((() . 4) . 3) . 2) . 1)`, which is obviously not a list.
