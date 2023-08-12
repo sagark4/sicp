@@ -566,3 +566,44 @@ An implementation of `for-each`.
        (f (car l))
        (for-each f (cdr l)))))
 ```
+
+- `(cons (list 1 2) (list 3 4))` is `((1 2) 3 4)`.
+- **Note** `pair?` tells whether argument is a pair.
+
+Exercises 2.24 and 2.25 skipped; Exercise 2.26 was just mental exercise (solved correctly).
+
+### Exercise 2.27
+
+Deep-reverse a list.
+```scheme
+(define (deep-reverse lo)
+  (define (deep-reverse-h l prev)
+    (if (null? l)
+	prev
+	(deep-reverse-h (cdr l)
+			(cons
+			 (let ((cur (car l)))
+			    (if (pair? cur)
+				(deep-reverse-h cur nil)
+				cur))
+			 prev))))
+  (deep-reverse-h lo nil))
+```
+
+### Exercise 2.28
+
+Print leaves of the "tree" in order.  Crucial observation is that when solving the problem recursively (there are two subproblems), we cannot append the solution of the second subproblem after solving the first subproblem first due to the `nil` appearing in the end, so we have to solve the second subproblem first whose solution we need to append to the solutionof the first subproblem.  This is done by allowing a second argument to the procedure called `to-append`.
+
+```scheme
+(define (fringe lo)
+  (define (fringe-h l to-append)
+    (if (null? l)
+	to-append
+	(let ((cur (car l)) (rem-fringe (fringe-h (cdr l) to-append)))
+	  (if (pair? cur)
+	      (fringe-h cur rem-fringe)
+	      (cons cur rem-fringe)))))
+  (fringe-h lo nil))
+```
+
+Exercise 2.29 skipped (life is short).
