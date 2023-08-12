@@ -607,3 +607,52 @@ Print leaves of the "tree" in order.  Crucial observation is that when solving t
 ```
 
 Exercise 2.29 skipped (life is short).
+
+Next mapping over trees is discussed and then exercises on that.  Exercise 2.30 is direct interpolation of the procedures given above it.
+
+### Exercise 2.31
+
+Almost the same as the `scale-tree` procedure from the text.
+```scheme
+(define (tree-map f tree)
+  (map (lambda (sub-tree)
+	 (if (pair? sub-tree)
+	     (tree-map f sub-tree)
+	     (f sub-tree)))
+       tree))
+```
+
+Exercise 2.32 is skipped.
+
+### 2.2.3 Sequences as Conventional Interfaces
+
+This section is heavy on the functional paradigm, i.e., it motivates and gives implementation of `filter`, `accumulate`, and `enumerate` procedures and shows examples of two seemingly different algorithms implemented in very similar way using these procedures.
+
+- `filter`, as the name suggests, filters the sequence given a predicate.
+- `accumulate`, starting with a given initial value and a way to combine an element and the result of the accumulation to the sequence on the right collects the whole result.
+
+### Exercise 2.33
+
+Implementing `map`, `append`, and `length` using `accumulate`.
+
+```scheme
+
+(define (map p sequence)
+  (accumulate (lambda (x y) (cons (p x) y)) nil sequence))
+
+(define (append seq1 seq2)
+  (accumulate cons seq2 seq1))
+
+(define (length sequence)
+  (accumulate (lambda (x y) (+ 1 y)) 0 sequence))
+```
+
+### Exercise 2.34
+
+```scheme
+(define (horner-eval x coefficient-sequence)
+  (accumulate (lambda (this-coeff higher-terms) (+ this-coeff (* x higher-terms)))
+              0
+              coefficient-sequence))
+```
+
