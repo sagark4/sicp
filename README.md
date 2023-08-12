@@ -605,6 +605,7 @@ Print leaves of the "tree" in order.  Crucial observation is that when solving t
 	      (cons cur rem-fringe)))))
   (fringe-h lo nil))
 ```
+I first came up with an answer using `append`, but thought that was inefficient.  Anyway, the book later gave a solution that uses `append`.
 
 Exercise 2.29 skipped (life is short).
 
@@ -656,3 +657,10 @@ Implementing `map`, `append`, and `length` using `accumulate`.
               coefficient-sequence))
 ```
 
+Exercises 2.35 to 2.39 skipped.
+
+The next topic titled **Nested Mappings** discusses two problems which can be solved by nesting `map`s.  
+
+Skipping Exercises 2.40 to 2.43 (pair generator, 3-sum, and n-queen problems).
+
+The next subsubsection is about a "picture language" which also has Exercises 2.44 to 2.51.  Skipping this.
