@@ -112,5 +112,5 @@
 	(successive-merge-h (adjoin-set (make-code-tree (car sorted-set) (cadr sorted-set))(cddr sorted-set)))))
   (car (successive-merge-h (accumulate adjoin-set '() set))))
 
-(equal? sample-tree (generate-huffman-tree '((A 4) (B 2) (D 1) (C 1))))
+(equal? sample-tree (generate-huffman-tree '((D 1) (B 2) (A 4) (C 1))))
 
