@@ -661,6 +661,53 @@ Exercises 2.35 to 2.39 skipped.
 
 The next topic titled **Nested Mappings** discusses two problems which can be solved by nesting `map`s.  
 
-Skipping Exercises 2.40 to 2.43 (pair generator, 3-sum, and n-queen problems).
+Skipping Exercises 2.40 to 2.43 (pair generator, 3-sum, and n-queen problems).  Just a note about 2.43: it is slow because the subproblem is solved repeatedly.
 
-The next subsubsection is about a "picture language" which also has Exercises 2.44 to 2.51.  Skipping this.
+The next subsubsection is about a "picture language" which also has Exercises 2.44 to 2.52.  Skipping this.
+
+## 2.3 Symbolic Data
+
+This section introduces the concept of quoting.  After a `'`, everything is quoted, and you can nest the symbols.  E.g., `'((x1 x2) (y1 y2))` is a list with four _symbols_ `x1`, `x2`, `y1`, `y2`.
+
+- `(equal? (list '(x1 x2) '(y1 y2)) '((x1 x2) (y1 y2)))` this is true.
+- `(car ''abracadabra)` outputs `quote`, because internally `'abracadabra` is first converted to `(quote 'abracadabra)`, which then further gets quoted.
+
+Exercises 2.53 to 2.55 skipped.
+
+### 2.3.2 Example: Symbolic Differentiation
+
+Uses the ability to define and use symbols to do some basic differentiation.  Note that you can
+
+- use symbols as variables, 
+- test equality with `eq?`, 
+- check if it's a symbol with `symbol?`, 
+- check if it's a number with `number?`.
+
+Exercises 2.56 to 2.58 skipped.
+
+### 2.3.3 Example: Representing Sets
+
+Demonstrates implementation of set operations; Exercises 2.59 to 2.66 skipped.
+
+### 2.3.4 Example: Huffman Encoding Trees
+
+- `(eq? 0 '0)` is true!
+
+Exercise 2.67 is trivial `(decode sample-message sample-tree)`.
+
+### Exercise 2.68
+
+I got the answer quickly except using `memq` improperly.
+
+```scheme
+(define (encode-symbol symbol tree)
+  (cond ((null? tree) (error "The tree is empty."))
+	((leaf? tree)
+	 (if (eq? symbol (symbol-leaf tree))
+	     nil
+	     (error "Symbol not found in the tree.")))
+	((memq symbol (symbols (left-branch tree)))
+	 (cons 0 (encode-symbol symbol (left-branch tree))))
+	(else
+	 (cons 1 (encode-symbol symbol (right-branch tree))))))
+```
