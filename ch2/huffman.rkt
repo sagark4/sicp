@@ -91,3 +91,26 @@
 	 (cons 1 (encode-symbol symbol (right-branch tree))))))
 
 (equal? (encode (decode sample-message sample-tree) sample-tree) sample-message)
+
+;; Exercise 2.69
+
+(define (generate-huffman-tree pairs)
+  (successive-merge (make-leaf-set pairs)))
+
+(define (accumulate op initial sequence)
+  (if (null? sequence)
+      initial
+      (op (car sequence)
+          (accumulate op initial (cdr sequence)))))
+
+;; Solution
+
+(define (successive-merge set)
+  (define (successive-merge-h sorted-set)
+    (if (null? (cdr sorted-set))
+	sorted-set
+	(successive-merge-h (adjoin-set (make-code-tree (car sorted-set) (cadr sorted-set))(cddr sorted-set)))))
+  (car (successive-merge-h (accumulate adjoin-set '() set))))
+
+(equal? sample-tree (generate-huffman-tree '((A 4) (B 2) (D 1) (C 1))))
+

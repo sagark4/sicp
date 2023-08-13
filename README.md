@@ -711,3 +711,18 @@ I got the answer quickly except using `memq` improperly.
 	(else
 	 (cons 1 (encode-symbol symbol (right-branch tree))))))
 ```
+
+### Exercise 2.69
+
+I first kept thinking about priority queue, then found out that I need to use `adjoin-set` procedure.  Then the exercise became straightforward.
+
+```scheme
+(define (successive-merge set)
+  (define (successive-merge-h sorted-set)
+    (if (null? (cdr sorted-set))
+	sorted-set
+	(successive-merge-h (adjoin-set (make-code-tree (car sorted-set) (cadr sorted-set))(cddr sorted-set)))))
+  (car (successive-merge-h (accumulate adjoin-set '() set))))
+```
+
+Exercises 2.70, 2.71, and 2.72 skipped.
