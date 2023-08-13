@@ -726,3 +726,79 @@ I first kept thinking about priority queue, then found out that I need to use `a
 ```
 
 Exercises 2.70, 2.71, and 2.72 skipped.
+
+## 2.4 Multiple Representation for Abstract Data
+
+Talks about representing same data in different forms using complex-number example (rectangular/polar form).  Motivates and introduces types and dispatch.  Type of representation is given by tagging.
+
+Exercises 2.73 to 2.76 skipped.
+
+## 2.5 Systems with Generic Operations
+
+Basically overloading, etc.  Exercises 2.77 to 2.80 skipped.
+
+Then talks about (type) coercion.
+
+Rest of the section talks about type hierarchies and some examples (symbolic algebra); Exercises 2.81 to 2.97 skipped.
+
+# 3. Modularity, Objects, and State
+
+The chapter introduction argues about the importance of state (coming from OO languages, this is really ingrained already in me).
+
+## 3.1 Assignment and Local State
+
+```scheme
+(define new-withdraw
+  (let ((balance 100))
+    (lambda (amount)
+      (if (>= balance amount)
+	  (begin (set! balance (- balance amount))
+		 balance)
+	  "Insufficient funds"))))
+```
+Using `let` this way allows `balance` to be maintained.  The following also works.
+
+```scheme
+(define (make-withdraw balance)
+  (lambda (amount)
+    (if (>= balance amount)
+	(begin (set! balance (- balance amount))
+	       balance)
+	"Insufficient funds")))
+```
+
+### Exercise 3.1
+
+```scheme
+(define (make-accumulator val)
+  (lambda (upd)
+    (begin (set! val (+ upd val))
+	   val)))
+```
+
+### Exercise 3.2
+
+This is basically like Python's decorator.
+
+```scheme
+(define (make-monitored f)
+  (let ((counter 0))
+    (lambda (x)
+      (cond ((eq? x 'how-many-calls?) counter)
+	    ((eq? x 'reset-count) (set! counter 0))
+	    (else (begin (set! counter (+ counter 1)) (f x)))))))
+```
+
+Exercises 3.3 and 3.4 skipped.
+
+### 3.1.2 The Benefits of Introducing Assignment
+
+Discusses a Monte-Carlo method as an example; Exercises 3.5 and 3.6 skipped.
+
+### 3.1.3 The Costs of Introducing Assignment
+
+General discussion on why mutability (used in _imperative programming_ style) muddies things.  You basically lose the correspondence between procedures and mathematical functions.  Also prone to different kinds of bugs.
+
+Exercises 3.7 and 3.8 skipped.
+
+My note: Coming from algorithm design background, and especially from Java/C++, I have big trouble imagining how some basic data structures and algorithms can be implemented in a functional programming language without mutability.  Indeed, that was a big barrier in thinking I had to jump over when understanding the material and doing the exercises.
