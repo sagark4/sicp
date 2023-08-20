@@ -788,6 +788,7 @@ This is basically like Python's decorator.
 	    ((eq? x 'reset-count) (set! counter 0))
 	    (else (begin (set! counter (+ counter 1)) (f x)))))))
 ```
+**Note: we cannot use `define` instead of `set!` above; it gives error in Racket, but would (I think) define `counter` variable in the environment for the inner lambda (remember `let` is actually a lambda).**
 
 Exercises 3.3 and 3.4 skipped.
 
@@ -802,3 +803,17 @@ General discussion on why mutability (used in _imperative programming_ style) mu
 Exercises 3.7 and 3.8 skipped.
 
 My note: Coming from algorithm design background, and especially from Java/C++, I have big trouble imagining how some basic data structures and algorithms can be implemented in a functional programming language without mutability.  Indeed, that was a big barrier in thinking I had to jump over when understanding the material and doing the exercises.
+
+## 3.2 The Environment Model for Evaluation
+
+If I had read this part before implementing the AST walker interpreter in _Crafting Interpreters_, I would have been faster there.  This section basically describes how environment "tree" works.  An environment is basically a map from variable names to values.  There is a _global_ environment and there are _procedure_ objects, which are basically lambdas.  Which means `(define (square x) (* x x))` is syntactic sugar for `(define square (lambda (x) (* x x)))`.
+
+Each environment except the global has a parent environment.  Each lambda specifies the parent environment at the time of its creation; it is the environment that was active when the lambda expression was evaluated).  A new environment is created and activated (only) for every procedure call (and the parent environment is specified by the corresponding lambda/procedure-object).  This new environment has only the parameters of the lambda as bound variables.
+
+Coming from non-functional languages, this can easily get confusing.  **Don't confuse the environment structure with call stack!**  The environment structure is mainly important for variable-name resolution.  The depth of the environment tree tells you how many inner lambdas you have at the moment, not how many active recursive calls you have.
+
+This is obviously best explained with examples and diagrams, so for illuminating examples, see Sections 3.2.2, 3.2.3, and 3.2.4 of the book.
+
+### Exercise 3.9
+
+The environment tree will have one root (global) node and six children node in the recursive case and eight in iterative case (one extra for the `factorial` procedure and one more for `counter` to go above `max-count`).
