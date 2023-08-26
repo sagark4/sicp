@@ -817,3 +817,8 @@ This is obviously best explained with examples and diagrams, so for illuminating
 ### Exercise 3.9
 
 The environment tree will have one root (global) node and six children node in the recursive case and eight in iterative case (one extra for the `factorial` procedure and one more for `counter` to go above `max-count`).
+
+
+### Exercise 3.10
+
+[A hand-drawn (ugly) solution](ch2/Ex3.10.pdf)
