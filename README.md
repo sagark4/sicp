@@ -821,4 +821,8 @@ The environment tree will have one root (global) node and six children node in t
 
 ### Exercise 3.10
 
-[A hand-drawn (ugly) solution](ch2/Ex3.10.pdf)
+[A hand-drawn (ugly) solution](ch3/Ex3.10.pdf)
+
+Exercise 3.11 skipped (a variant of 3.10).
+
+The point of this exercises becomes clear when you understand how environments work (as described above), and that **executing a `lambda` statement creates a "procedure" object (in the wild), which might be executed immediately (using `let`) or bound to a name (using `define`).
