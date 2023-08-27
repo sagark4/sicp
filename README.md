@@ -826,3 +826,24 @@ The environment tree will have one root (global) node and six children node in t
 Exercise 3.11 skipped (a variant of 3.10).
 
 The point of this exercises becomes clear when you understand how environments work (as described above), and that **executing a `lambda` statement creates a "procedure" object (in the wild), which might be executed immediately (using `let`) or bound to a name (using `define`).
+
+## 3.3 Modeling with Mutable Data
+
+- Discusses `(set-car! x y)` and `(set-cdr! x y)`.
+- In a footnote, mentions garbage collector.
+- `cons`es and `list`s are basically pointers, so two elements can point to the same pair.
+- But a footnote tells that the symbols themselves are shared so that `eq?` --- **which just check equality of pointers** --- works correctly.
+- I looked at Exercises 3.12, 3.13, 3.14 (I think it just reverses the list), 3.15, and 3.16, and decided to skip most of this section.  Reason being that now mutation is possible, so the algorithms and logic are mainly going to be like an imperative programming language.  Life is short, and I don't want to redo these things in `Scheme` just so I am more comfortable with the language.
+- **In fact, now I am thinking to just skim through Chapters 4 and 5 and/or just watch the corresponding lecture videos.  My main reason to study this book was to see what the big deal is (was suggested a lot on the Internet and social media), to get familiar with `Lisp` so I could maybe get into Emacs Lisp, and to get familiar with functional programming (Python's [Functional Programming HOWTO](https://docs.python.org/3/howto/functional.html) mentions that the functional-programming design discussed in Chapters 2 and 3 of this book is applicable to Python code).  Given that I have implemented an AST walk interpreter for `Lox`, I won't benefit a lot by implementing a `Scheme` interpreter, which is the topic of Chapters 4 and 5.  Although, I might benefit by skimming through.**  After all, as of now, I don't want to go deep in programming languages.
+- Exercises 3.17, 3.18, 3.19 (this one is basically fast-and-slow pointers through singly-linked list), 3.20 skipped.
+- Exercises 3.21, 3.22, and 3.23 are on the queue data structure; skipped (subsection also skipped without reading).
+- Exercises 3.24 to 3.27 seem to be on "table" data structure.
+- Subsection 3.3.4 talks about implementation of a digital-circuit simulator; Exercises 3.28 to 3.32 skipped.
+- Subsection 3.3.5 is about calculating unknowns from equations in a versatile manner (i.e., given an equation, construct a "circuit" that can be used to find any variable in that equation given the others; these values and circuit also seem to be mutable).  Exercises 3.33 to 3.37 skipped.
+
+## 3.4 Mechanisms for Controlling Concurrency
+
+I briefly read this section; it's kinda trivial given that I've done Prasad Jayanti's "Concurrent Algorithms" course.  Starts with concurrency issues and serializability and mentions `parallel-execute` procedure of MIT Scheme.  Then gives a mutex implementation using `test-and-set!`.  Also discussed deadlock.
+
+Exercises 3.38 to 3.49 skipped.
+
